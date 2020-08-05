@@ -191,7 +191,7 @@
         transform: translateY(-50%);
         line-height: 5px;
         font-size: 20px;
-        margin-top:50px;
+        margin-top:55px;
 
       }
       .chat-status {
@@ -221,22 +221,26 @@
   </head>
   <body>
       <!-- FAB ICON change src https for image change / upload to wordpress-->
-      <img class = "FAB" onclick="toggleChat()" src = "https://i.imgur.com/3McaWWR.png?1">
-      <div id="webchat-container">
-        <div id="webchat-bar">
-          <!--  ICON change src https for image change-->
-          <img class = "logo" src = "https://i.imgur.com/3McaWWR.png?1">
-          <div class = "chat-text">
-            <p class = "chat-name">Allie</p>
-            <p class = "chat-status">online</p>
-          </div>
-          <div id="mdiv" onclick="closeChat()"> <!-- close button -->
-            <div class="mdiv">
-              <div class="md"></div>
+      <div class="row">
+        <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12">
+          <img class = "FAB" onclick="toggleChat()" src = "https://i.imgur.com/3McaWWR.png?1">
+          <div id="webchat-container">
+            <div id="webchat-bar">
+              <!--  ICON change src https for image change-->
+              <img class = "logo" src = "https://i.imgur.com/3McaWWR.png?1">
+              <div class = "chat-text">
+                <p class = "chat-name">Allie</p>
+                <p class = "chat-status">online</p>
+              </div>
+              <div id="mdiv" onclick="closeChat()"> <!-- close button -->
+                <div class="mdiv">
+                  <div class="md"></div>
+                </div>
+              </div>
             </div>
+            <div id="webchat" role="main"></div>
           </div>
         </div>
-        <div id="webchat" role="main"></div>
       </div>
 
       <script src="https://cdn.botframework.com/botframework-webchat/latest/webchat.js"></script>
