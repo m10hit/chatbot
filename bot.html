@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link href='https://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet'>
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,500,600,700" rel="stylesheet">
+    <style>
+      body {
+        font-family: 'Montserrat';
+        background-color: #FFFFFF;
+      }
+
+      .ac-pushButton.style-default {
+          font-size: 13px !important;
+          font-weight: 500 !important;
+          border-radius: 10px !important;
+          border-color: #222222;
+      }
+
+      .ac-pushButton.style-default:focus {
+          box-shadow: 0px 0px 0px 4px #2f766f inset;
+          outline-style: none;
+
+      }
+
+      .ac-pushButton.style-default:hover {
+          box-shadow: 0px 0px 0px 4px #C1B863 inset;
+          outline-style: none;
+
+      }
+
+      a:hover {
+         color: #C1B863;
+      }
+      a {
+       color: #2f766f;
+      }
+      #webchat{
+        height:82%;
+        width: 100%;
+        bottom: 0;
+        flex: 0 1 auto;
+        overflow-y: auto;
+        overflow-x: hidden;
+      }
+      /*text message box area*/
+      .main {
+        border-radius: 0px 0px 10px 10px;
+        height: 50px;
+        padding-left: 7px;
+      }
+
+      #webchat-bar {
+        background-color: #222222;
+        height: 18%;
+        width: 100%;
+        border-radius: 10px 10px 0px 0px;
+        align-items: center;
+        position: relative;
+        box-shadow: 0 7px 7px rgba(0, 0, 0, 0.25);
+
+      }
+
+      #webchat-container {
+        height: 480px;
+        width: 323px;
+        border-radius: 10px;
+        background-color: white;
+        position: fixed;
+        bottom: 25px;
+        right: 25px;
+        box-shadow: 0 7px 7px rgba(0, 0, 0, 0.25);
+        overflow: hidden;
+        display: flex;
+        animation: appear 350ms ease-in 1;
+        flex-direction: column;
+      }
+
+      /* For mobile */
+      @media (max-width: 460px), (max-width: 750px) and (orientation: landscape){
+        #webchat-container {
+          border-radius: 0px;
+          height:100%;
+          width:100%;
+          bottom: 0px;
+          right: 0px;
+          display: none;
+
+        }
+        #webchat-bar {
+          border-radius: 0px;
+          height: 100px;
+        }
+
+        #webchat {
+          height: calc(100% - 100px);
+        }
+        .main {
+          border-radius: 0px;
+        }
+        .FAB {
+            right: 15px;
+            bottom: 15px;
+            box-shadow: 0px 7px px rgba(0, 0, 0, 0.25);
+        }
+        .chat-text {
+            top: -5%;
+        }
+
+        #mdiv {
+            top: 43% !important;
+        }
+
+        #mdiv:hover {
+            top: 33% !important;
+        }
+      }
+
+      /* animating chat popup */
+      @keyframes appear {
+        0%{
+          opacity: 0;
+          transform: translateY(30px);
+        }
+      }
+      /* Close button */
+      #mdiv {
+        width: 23px;
+        height: 23px;
+        float: right;
+        position: relative;
+        margin-right: 17px;
+        transition: ease 0.25s all;
+        transform-origin: center center;
+        top: 40%;
+        transform: translateY(-50%);
+
+      }
+
+      #mdiv:hover {
+        top: 30%;
+        transform: translateY(-50%);
+        transform-origin: center center;
+        -webkit-transform: translateY(-3px) translateX(2px)rotate(90deg);
+        transform: translateY(-3px)translateX(2px) rotate(90deg);
+        cursor: pointer;
+      }
+
+      .mdiv {
+        height: 23px;
+        width: 2px;
+        margin-left: 12px;
+        background-color: white;
+        transform: rotate(45deg);
+        Z-index: 1;
+      }
+
+      .md {
+        height: 23px;
+        width: 2px;
+        background-color: white;
+        transform: rotate(90deg);
+        Z-index: 2;
+      }
+
+      .logo {
+        height: 25%;
+        width: 25%;
+        display: inline-block;
+        margin-left: 5px;
+        margin-right: 10px;
+        position: relative;
+        top: 50%;
+        transform: translateY(-50%);
+      }
+
+      .chat-text {
+        display: inline-block;
+        color: white;
+        position: relative;
+        transform: translateY(-50%);
+        line-height: 5px;
+        font-size: 20px;
+
+
+      }
+      .chat-status {
+          font-size: 13px;
+          font-style: italic;
+          margin-top 10px;
+          color: #D2D2D2;
+      }
+      .chat-name {
+        font-weight: 600;
+      }
+      .FAB {
+        position: fixed;
+        bottom: 10px;
+        float: right;
+        right: 10px;
+        height: 120px;
+        width: 120px;
+        display: block;
+      }
+
+      .FAB:hover {
+         cursor: pointer;
+      }
+
+    </style>
+  </head>
+  <body>
+      <!-- FAB ICON change src https for image change / upload to wordpress-->
+      <img class = "FAB" onclick="toggleChat()" src = "https://i.imgur.com/3McaWWR.png?1">
+      <div id="webchat-container">
+        <div id="webchat-bar">
+          <!--  ICON change src https for image change-->
+          <img class = "logo" src = "https://i.imgur.com/3McaWWR.png?1">
+          <div class = "chat-text">
+            <p class = "chat-name">Allie</p>
+            <p class = "chat-status">online</p>
+          </div>
+          <div id="mdiv" onclick="closeChat()"> <!-- close button -->
+            <div class="mdiv">
+              <div class="md"></div>
+            </div>
+          </div>
+        </div>
+        <div id="webchat" role="main"></div>
+      </div>
+
+      <script src="https://cdn.botframework.com/botframework-webchat/latest/webchat.js"></script>
+      <script>
+         // "styleSet" is a set of CSS rules which are generated from "styleOptions"
+         const styleSet = window.WebChat.createStyleSet({
+            bubbleBackground: '#222222',
+            bubbleTextColor: 'White',
+            bubbleFromUserTextColor: "#222222",
+            backgroundColor: '#E6E6E6',
+            bubbleFromUserBackground: '#F4F4F4',
+            bubbleFromUserBorderColor: '#F4F4F4',
+            bubbleFromUserBorderRadius: 15,
+            bubbleBorderRadius: 15,
+            hideUploadButton: true,
+            sendBoxBackground: 'White',
+            sendBoxButtonColor: '#222222',
+            sendBoxButtonColorOnHover: '#9A9A9A',
+            sendBoxTextColor: '#222222',
+            sendBoxHeight: 60,
+            primaryFont: 'Montserrat',
+            accent: '#2F3676'
+            });
+
+         // After generated, you can modify the CSS rules
+
+
+        styleSet.sendBoxTextArea = {
+            ...styleSet.sendBoxTextArea,
+            padding: 25,
+            borderRadius: 0,
+            fontSize: 14
+        };
+
+        styleSet.bubble = {
+            ...styleSet.bubble,
+            fontSize: 14,
+            padding: 5
+        };
+
+        styleSet.sendStatus = {
+            ...styleSet.sendStatus,
+            padding: 5
+        };
+
+        styleSet.sendBoxTextBox = {
+            ...styleSet.sendBoxTextBox,
+            paddingRight: 25,
+            paddingLeft: 25,
+            borderRadius: 0,
+            fontSize: 14,
+            paddingTop:10,
+            paddingBottom: 10
+        };
+        window.WebChat.renderWebChat(
+            {
+               directLine: window.WebChat.createDirectLine({
+                  secret: '8jFFSsDCy1E.cAwNBscNhoHXDJQE7csSMQxOdVHVEu_Tf7ylXaRXJfE'
+               }),
+
+               // Passing 'styleSet' when rendering Web Chat
+               styleSet
+            },
+            document.getElementById('webchat')
+        );
+
+        function toggleChat() {
+            if (document.getElementById("webchat-container").style.display == "flex"){
+                document.getElementById("webchat-container").style.display = "none";
+                document.getElementByClassName("FAB").style.display = "block";
+            }
+            else {
+            document.getElementById("webchat-container").style.display = "flex";
+            document.getElementByClassName("FAB").style.display = "none";
+            }
+        }
+
+        function closeChat() {
+           document.getElementById("webchat-container").style.display = "none";
+           document.getElementByClassName("FAB").style.display = "flex";
+        }
+      </script>
+   </body>
+</html>
